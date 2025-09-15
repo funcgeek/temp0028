@@ -1,0 +1,51 @@
+[07-Apr-2025 15:45:21 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 2
+[07-Apr-2025 15:45:21 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 3
+[07-Apr-2025 15:45:21 UTC] PHP Warning:  mysqli::__construct(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 5
+[07-Apr-2025 15:45:21 UTC] PHP Warning:  Attempt to read property "connect_error" on bool in /home/gtextportal/di-gi.site/emr/db/db.php on line 7
+[07-Apr-2025 15:45:26 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 2
+[07-Apr-2025 15:45:26 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 3
+[07-Apr-2025 15:45:26 UTC] PHP Warning:  mysqli::__construct(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 5
+[07-Apr-2025 15:45:26 UTC] PHP Warning:  Attempt to read property "connect_error" on bool in /home/gtextportal/di-gi.site/emr/db/db.php on line 7
+[07-Apr-2025 15:47:41 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 2
+[07-Apr-2025 15:47:41 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 3
+[07-Apr-2025 15:47:41 UTC] PHP Warning:  mysqli::__construct(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 5
+[07-Apr-2025 15:47:41 UTC] PHP Warning:  Attempt to read property "connect_error" on bool in /home/gtextportal/di-gi.site/emr/db/db.php on line 7
+[07-Apr-2025 15:50:01 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 2
+[07-Apr-2025 15:50:01 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 3
+[07-Apr-2025 15:50:01 UTC] PHP Warning:  mysqli::__construct(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 5
+[07-Apr-2025 15:50:01 UTC] PHP Warning:  Attempt to read property "connect_error" on bool in /home/gtextportal/di-gi.site/emr/db/db.php on line 7
+[07-Apr-2025 15:51:57 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 2
+[07-Apr-2025 15:51:57 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 3
+[07-Apr-2025 15:51:57 UTC] PHP Warning:  mysqli::__construct(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 5
+[07-Apr-2025 15:51:57 UTC] PHP Warning:  Attempt to read property "connect_error" on bool in /home/gtextportal/di-gi.site/emr/db/db.php on line 7
+[07-Apr-2025 16:03:04 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 2
+[07-Apr-2025 16:03:04 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 3
+[07-Apr-2025 16:03:04 UTC] PHP Warning:  mysqli::__construct(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 5
+[07-Apr-2025 16:03:10 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 2
+[07-Apr-2025 16:03:10 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 3
+[07-Apr-2025 16:03:10 UTC] PHP Warning:  mysqli::__construct(): (HY000/1045): Access denied for user 'ispecs_0'@'localhost' (using password: YES) in /home/gtextportal/di-gi.site/emr/db/db.php on line 5
+[08-Apr-2025 04:20:42 UTC] PHP Warning:  Use of undefined constant app_transfer9 - assumed 'app_transfer9' (this will throw an Error in a future version of PHP) in /home/gtextportal/di-gi.site/emr/db/app_trans.php on line 92
+[14-Apr-2025 15:44:59 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/gtextportal/di-gi.site/emr/db/getemail.php on line 55
+[14-Apr-2025 15:44:59 UTC] PHP Warning:  extract() expects parameter 1 to be array, null given in /home/gtextportal/di-gi.site/emr/db/getemail.php on line 56
+[26-May-2025 21:55:37 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/gtextportal/ispecs-emr.di-gi.online/db/getemail.php on line 55
+[26-May-2025 21:55:37 UTC] PHP Warning:  extract() expects parameter 1 to be array, null given in /home/gtextportal/ispecs-emr.di-gi.online/db/getemail.php on line 56
+[29-Jul-2025 20:57:53 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/gtextportal/ispecs-emr.di-gi.online/db/getframeitems.php on line 12
+[16-Aug-2025 10:20:09 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/gtextportal/ispecs-emr.di-gi.online/db/getdoctornotes.php on line 83
+[16-Aug-2025 10:20:09 UTC] PHP Warning:  extract() expects parameter 1 to be array, null given in /home/gtextportal/ispecs-emr.di-gi.online/db/getdoctornotes.php on line 84
+[16-Aug-2025 10:22:17 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/gtextportal/ispecs-emr.di-gi.online/db/getdoctornotes.php on line 83
+[16-Aug-2025 10:22:17 UTC] PHP Warning:  extract() expects parameter 1 to be array, null given in /home/gtextportal/ispecs-emr.di-gi.online/db/getdoctornotes.php on line 84
+[16-Aug-2025 10:23:29 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/gtextportal/ispecs-emr.di-gi.online/db/getdoctornotes.php on line 83
+[16-Aug-2025 10:23:29 UTC] PHP Warning:  extract() expects parameter 1 to be array, null given in /home/gtextportal/ispecs-emr.di-gi.online/db/getdoctornotes.php on line 84
+[16-Aug-2025 10:24:38 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/gtextportal/ispecs-emr.di-gi.online/db/getdoctornotes.php on line 83
+[16-Aug-2025 10:24:38 UTC] PHP Warning:  extract() expects parameter 1 to be array, null given in /home/gtextportal/ispecs-emr.di-gi.online/db/getdoctornotes.php on line 84
+[16-Aug-2025 10:28:39 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/gtextportal/ispecs-emr.di-gi.online/db/getdoctornotes.php on line 83
+[16-Aug-2025 10:28:39 UTC] PHP Warning:  extract() expects parameter 1 to be array, null given in /home/gtextportal/ispecs-emr.di-gi.online/db/getdoctornotes.php on line 84
+[22-Aug-2025 14:29:22 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/gtextportal/ispecs-emr.di-gi.online/db/getdoctornotes.php on line 83
+[22-Aug-2025 14:29:22 UTC] PHP Warning:  extract() expects parameter 1 to be array, null given in /home/gtextportal/ispecs-emr.di-gi.online/db/getdoctornotes.php on line 84
+[22-Aug-2025 14:29:33 UTC] PHP Warning:  extract() expects parameter 1 to be array, null given in /home/gtextportal/ispecs-emr.di-gi.online/db/editdoctornotes.php on line 12
+[22-Aug-2025 14:40:07 UTC] PHP Warning:  extract() expects parameter 1 to be array, null given in /home/gtextportal/ispecs-emr.di-gi.online/db/editdoctornotes.php on line 12
+[22-Aug-2025 14:41:13 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/gtextportal/ispecs-emr.di-gi.online/db/getdoctornotes.php on line 83
+[22-Aug-2025 14:41:13 UTC] PHP Warning:  extract() expects parameter 1 to be array, null given in /home/gtextportal/ispecs-emr.di-gi.online/db/getdoctornotes.php on line 84
+[26-Aug-2025 08:31:44 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/gtextportal/ispecs-emr.di-gi.online/db/getemail.php on line 55
+[26-Aug-2025 08:31:44 UTC] PHP Warning:  extract() expects parameter 1 to be array, null given in /home/gtextportal/ispecs-emr.di-gi.online/db/getemail.php on line 56
+[30-Aug-2025 23:52:18 UTC] PHP Warning:  mysqli::__construct(): (HY000/1045): Access denied for user 'gtextportal_emr_setup'@'localhost' (using password: YES) in /home/gtextportal/ispecs-emr.di-gi.online/db/edit_schedule.php on line 11

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Eyebrow shapes -->
+  <path d="M75 40 A40 20 0 0 0 115 40" stroke="#aeb2b7" stroke-width="10" fill="none" />
+  <path d="M175 40 A40 20 0 0 0 215 40" stroke="#aeb2b7" stroke-width="10" fill="none" />
+  
+  <!-- Bridge of glasses -->
+  <rect x="115" y="95" width="60" height="20" fill="#aeb2b7" />
+  
+  <!-- Left lens -->
+  <circle cx="85" cy="105" r="40" stroke="#aeb2b7" stroke-width="10" fill="none" />
+  <circle cx="85" cy="105" r="30" fill="#aeb2b7" fill-opacity="0.3" />
+  <text x="85" y="115" font-family="Arial" font-size="30" text-anchor="middle" fill="#aeb2b7">L</text>
+  
+  <!-- Right lens -->
+  <circle cx="205" cy="105" r="40" stroke="#aeb2b7" stroke-width="10" fill="none" />
+  <circle cx="205" cy="105" r="30" fill="#aeb2b7" fill-opacity="0.3" />
+  <text x="205" y="115" font-family="Arial" font-size="30" text-anchor="middle" fill="#aeb2b7">R</text>
+</svg>
