@@ -976,7 +976,7 @@
                                     <li><a href="patient"><i class="fa fa-user"></i><?php echo lang('patient_list'); ?></a></li>
 
                                      <?php if ($this->ion_auth->in_group(array('admin', 'Doctor'))) { ?>
-                                    <li><a href="patientReport"><i class="fa fa-user"></i>Patient Report</a></li>
+                                    <li><a href="patient/patientReport"><i class="fa fa-user"></i>Patient Report</a></li>
                                       <?php } ?>
 
                                     <?php if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Doctor', 'Receptionist'))) { ?>
