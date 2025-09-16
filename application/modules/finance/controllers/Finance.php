@@ -1198,7 +1198,7 @@ $arr = explode(',',$string);
         $this->load->view('home/footer'); // just the header file
     }
 
-    function customInvoice(){
+    function customInvoice() {
      
     //check if user is logged in before trying to access page
     if (!$this->ion_auth->logged_in()){
