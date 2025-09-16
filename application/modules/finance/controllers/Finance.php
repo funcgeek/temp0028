@@ -1191,16 +1191,36 @@ $arr = explode(',',$string);
             $data['gateway'] = $this->finance_model->getGatewayByName($data['settings']->payment_gateway);
         }
 
-
-
         $data['patient'] = $this->patient_model->getPatientByid($patient);
-
-
-
 
         $this->load->view('home/dashboard'); // just the header file
         $this->load->view('patient_deposit', $data);
         $this->load->view('home/footer'); // just the header file
+    }
+
+    function customInvoice(){
+     
+    //check if user is logged in before trying to access page
+    if (!$this->ion_auth->logged_in()){
+
+        redirect('auth/login', 'refresh');
+    }
+    
+    //create patient variable
+    $patient = $this->input->get('patient');
+    if (empty($patient)){
+        $patient = $this->input->post('patient');
+    }
+
+    //configure data for settings and details of patient
+    $data['settings'] = $this->settings_model->getSettings();
+    $data['patient'] = $this->patient_model->getPatientByid($patient);
+
+    //Load customInvoice View Page
+
+    $this->load->vew('home/dashboard');
+    $this->load->view('custom_invoice');
+    $this->load->view('home/footer');
     }
 
     function deposit() {

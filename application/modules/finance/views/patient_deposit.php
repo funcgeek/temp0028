@@ -68,7 +68,7 @@
                 </div>
                 
                 	<div class="panel-body no-print pull-right">
-                    <a href="#">
+                    <a href="finance/customInvoice?patient=<?php echo $patient->id; ?>">
                         <div class="btn-group">
                             <button id="" class="notification2 btn btn-xs green">
                                 <i class="fa fa-plus-circle"></i> 

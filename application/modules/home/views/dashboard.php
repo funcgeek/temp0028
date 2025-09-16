@@ -977,6 +977,7 @@
 
                                      <?php if ($this->ion_auth->in_group(array('admin', 'Doctor'))) { ?>
                                     <li><a href="patient/patientReport"><i class="fa fa-user"></i>Patient Report</a></li>
+                                    
                                       <?php } ?>
 
                                     <?php if ($this->ion_auth->in_group(array('admin', 'Accountant', 'Doctor', 'Receptionist'))) { ?>
