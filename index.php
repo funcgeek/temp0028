@@ -97,7 +97,7 @@ switch (ENVIRONMENT)
 
     case 'production':
         error_reporting(-1); // Report all errors, same as development
-        ini_set('display_errors', 0);
+        ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1); // Also display startup errors
     break;
 
