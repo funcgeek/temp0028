@@ -1,4 +1,4 @@
-dddd    <section class="wrapper site-min-height">
+<section class="wrapper site-min-height">
         <section class="patient_report_container">
             <header class="panel-heading patient_report_header">
                 <strong>Custom Invoice</strong>
