@@ -1218,7 +1218,7 @@ $arr = explode(',',$string);
 
     //Load customInvoice View Page
 
-    $this->load->vew('home/dashboard');
+    $this->load->view('home/dashboard');
     $this->load->view('custom_invoice', $data);
     $this->load->view('home/footer');
     }
