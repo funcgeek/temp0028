@@ -75,8 +75,8 @@ function generateToken($length = 31) {
 ?>
 
 <a href="finance/customInvoice?patient=<?php echo $patient->id; ?>&token=<?php echo generateToken(); ?>">
-    Generate Invoice
-</a>
+   
+
                         <div class="btn-group">
                             <button id="" class="notification2 btn btn-xs green">
                                 <i class="fa fa-plus-circle"></i> 
