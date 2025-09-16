@@ -41,6 +41,18 @@ class Patient extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
+        public function patientReport() {
+     //   if ($this->ion_auth->in_group(array('Patient'))) {
+      //      // // redirect('home/permission');  
+      //  }
+        $data['doctors'] = $this->doctor_model->getDoctor();
+        $data['groups'] = $this->donor_model->getBloodBank();
+        $data['settings'] = $this->settings_model->getSettings();
+        $this->load->view('home/dashboard'); // just the header file
+        $this->load->view('patient_report', $data);
+        $this->load->view('home/footer'); // just the header file
+    }
+
     public function calendar() {
         $data['settings'] = $this->settings_model->getSettings();
         $this->load->view('home/dashboard'); // just the header file
