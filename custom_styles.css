@@ -1,0 +1,234 @@
+/* --- General & Layout --- */
+body {
+    background-color: #f4f7f6;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+.ci-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.ci-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.ci-header strong {
+    font-size: 28px;
+    color: #3f51b5;
+    display: block;
+}
+
+.ci-sub-header {
+    font-size: 16px;
+    color: #555;
+    margin-top: 5px;
+}
+
+.ci-container {
+    display: flex;
+    gap: 20px;
+}
+
+.ci-col-left { flex: 1; }
+.ci-col-right { flex: 1; }
+
+.ci-panel {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    padding: 20px;
+}
+
+.ci-panel-title {
+    margin-top: 0;
+    font-size: 20px;
+    color: #3f51b5;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.ci-hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+/* --- Table Styles (Invoice List) --- */
+.ci-table-container {
+    max-height: 500px;
+    overflow-y: auto;
+}
+.ci-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+.ci-table th, .ci-table td {
+    padding: 12px 8px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+.ci-table th {
+    font-weight: 600;
+    color: #555;
+}
+.ci-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* --- Form Styles --- */
+.ci-form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+.ci-form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.ci-form label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #444;
+}
+.ci-form input[type="text"],
+.ci-form input[type="date"],
+.ci-form input[type="number"],
+.ci-form select,
+.ci-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.ci-form textarea { resize: vertical; }
+
+/* --- Invoice Items --- */
+.ci-items-title { font-size: 16px; color: #333; margin-top: 0; }
+.ci-item-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.ci-item-row input:nth-child(1) { flex: 4; } /* Description */
+.ci-item-row input:nth-child(2) { flex: 1; } /* Qty */
+.ci-item-row input:nth-child(3) { flex: 2; } /* Unit Price */
+.ci-item-total { font-weight: bold; min-width: 60px; text-align: right; }
+
+/* --- Summary --- */
+.ci-summary-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.ci-summary-section .ci-form-group { flex: 1; }
+.ci-summary-table {
+    width: 250px;
+    font-size: 14px;
+}
+.ci-summary-table td { padding: 5px 0; }
+.ci-summary-table td:last-child { text-align: right; }
+.ci-summary-table input[type="number"] {
+    width: 100px;
+    text-align: right;
+    padding: 5px;
+}
+.ci-total-row td {
+    font-size: 18px;
+    font-weight: bold;
+    color: #e91e63;
+}
+
+/* --- Buttons --- */
+.ci-btn-add, .ci-btn-remove {
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+    cursor: pointer;
+    line-height: 28px;
+    text-align: center;
+}
+.ci-btn-remove { background-color: #e91e63; font-size: 20px; line-height: 26px; }
+.ci-btn-submit {
+    background: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 15px;
+}
+.ci-btn-submit:hover { background: #45a049; }
+.ci-btn-small {
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 12px;
+    color: white;
+}
+.ci-btn-view { background-color: #00bcd4; }
+
+/* --- View Invoice Styles (vi- prefix) --- */
+.vi-container { max-width: 800px; margin: 20px auto; color: #000; font-size: 14px; line-height: 1.4; background: white; padding: 40px; }
+.vi-top-line { border-top: 1px solid #3f51b5; margin-bottom: 10px; }
+.vi-company { color: #3f51b5; font-size: 20px; font-weight: 600; margin-bottom: 5px; }
+.vi-address { color: #3f51b5; font-size: 12px; margin-bottom: 20px; }
+.vi-title { color: #3f51b5; font-size: 32px; font-weight: 600; margin-bottom: 5px; }
+.vi-submitted { color: #e91e63; font-size: 14px; margin-bottom: 15px; }
+.vi-info-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 10px; }
+.vi-info-table td { padding: 2px 0; vertical-align: top; }
+.vi-info-table td:nth-child(2) { padding-left: 50px; }
+.vi-info-table td:nth-child(3) { padding-left: 50px; }
+.vi-divider { border-top: 1px solid #ddd; margin: 10px 0 20px 0; }
+.vi-items-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 20px; }
+.vi-items-header th { color: #3f51b5; text-align: left; padding-bottom: 5px; font-weight: 600; font-size: 14px; border-bottom: 2px solid #3f51b5; }
+.vi-items-table td { padding: 8px 0; border-bottom: 1px solid #eee; }
+.vi-description { width: 50%; }
+.vi-qty { width: 10%; }
+.vi-unit-price { width: 20%; text-align: right; }
+.vi-total-price { width: 20%; text-align: right; }
+.vi-notes { font-size: 12px; margin: 20px 0; color: #000; }
+.vi-summary-table { float: right; width: 250px; border-collapse: collapse; font-size: 12px; }
+.vi-summary-table td { padding: 4px 10px 4px 0; text-align: right; }
+.vi-summary-label { font-weight: 600; }
+.vi-total-amount { color: #e91e63; font-size: 18px; font-weight: 600; border-top: 2px solid #333; padding-top: 10px !important; }
+
+/* -- Print & Download Buttons -- */
+.vi-actions-bar {
+    max-width: 800px;
+    margin: 20px auto 0;
+    text-align: right;
+}
+.vi-btn {
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 10px;
+}
+@media print {
+    body { padding: 0; background-color: #fff; }
+    .vi-actions-bar { display: none; }
+    .vi-container { margin: 0; box-shadow: none; max-width: 100%; padding: 0; }
+}
