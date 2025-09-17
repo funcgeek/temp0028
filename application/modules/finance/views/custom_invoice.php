@@ -31,6 +31,10 @@ mysqli_close($conn);
 
     <section id="main-content">
         <section class="ci-wrapper">
+
+        <p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
             <header class="ci-header">
                 <strong>Custom Invoice Management</strong>
                 <p class="ci-sub-header">Managing Invoices for <?php echo htmlspecialchars($patient_full_name); ?></p>
