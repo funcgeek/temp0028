@@ -24,7 +24,7 @@ if ($patient_id === 0) {
 }
 
 $invoices = [];
-$sql = "SELECT id, invoice_number, submitted_on, total_amount FROM custom_invoice WHERE patient_id = ? ORDER BY submitted_on DESC";
+$sql = "SELECT * FROM custom_invoice WHERE patient_id = ? ORDER BY submitted_on DESC";
 
 if ($stmt = mysqli_prepare($conn, $sql)) {
     mysqli_stmt_bind_param($stmt, "i", $patient_id);
