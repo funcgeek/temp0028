@@ -151,7 +151,7 @@ function fetchInvoices() {
                             '<td>' + invoice.submitted_on_formatted + '</td>' +
                             '<td>$' + parseFloat(invoice.total_amount).toFixed(2) + '</td>' +
                             '<td>' +
-                                '<a href="/finance/view_customInvoice.php?ref=' + invoice.id + '" class="ci-btn-small ci-btn-view">View</a>' +
+                                '<a href="/finance/viewCustomInvoice?ref=' + invoice.id + '" class="ci-btn-small ci-btn-view">View</a>' +
                             '</td>' +
                         '</tr>';
                     invoiceListBody.innerHTML += row;
