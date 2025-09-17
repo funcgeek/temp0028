@@ -137,31 +137,34 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Invoice List Logic ---
     const invoiceListBody = document.getElementById('invoice-list-body');
 
-    function fetchInvoices() {
-        if (!patientId) return;
-        fetch(`./db/fetch_custom_invoice.php?patient_id=${patientId}`)
-            .then(response => response.json())
-            .then(data => {
-                invoiceListBody.innerHTML = ''; // Clear existing rows
-                if (data.success && data.invoices.length > 0) {
-                    data.invoices.forEach(invoice => {
-                        const row = `
-                            <tr>
-                                <td>#${invoice.invoice_number}</td>
-                                <td>${invoice.submitted_on_formatted}</td>
-                                <td>$${parseFloat(invoice.total_amount).toFixed(2)}</td>
-                                <td>
-                                    <a href="view_customInvoice.php?ref=${invoice.id}" class="ci-btn-small ci-btn-view">View</a>
-                                </td>
-                            </tr>`;
-                        invoiceListBody.innerHTML += row;
-                    });
-                } else {
-                    invoiceListBody.innerHTML = '<tr><td colspan="4">No custom invoices found.</td></tr>';
-                }
-            })
-            .catch(error => console.error('Error fetching invoices:', error));
-    }
+function fetchInvoices() {
+    if (!patientId) return;
+    fetch('/db/fetch_custom_invoice.php?patient_id=' + patientId)
+        .then(response => response.json())
+        .then(data => {
+            invoiceListBody.innerHTML = ''; // Clear existing rows
+            if (data.success && data.invoices.length > 0) {
+                data.invoices.forEach(function(invoice) {
+                    const row = 
+                        '<tr>' +
+                            '<td>#' + invoice.invoice_number + '</td>' +
+                            '<td>' + invoice.submitted_on_formatted + '</td>' +
+                            '<td>$' + parseFloat(invoice.total_amount).toFixed(2) + '</td>' +
+                            '<td>' +
+                                '<a href="/finance/view_customInvoice.php?ref=' + invoice.id + '" class="ci-btn-small ci-btn-view">View</a>' +
+                            '</td>' +
+                        '</tr>';
+                    invoiceListBody.innerHTML += row;
+                });
+            } else {
+                invoiceListBody.innerHTML = '<tr><td colspan="4">No custom invoices found.</td></tr>';
+            }
+        })
+        .catch(function(error) {
+            console.error('Error fetching invoices:', error);
+        });
+}
+
 
     // --- Form Logic ---
     const itemsContainer = document.getElementById('invoice-items-container');
