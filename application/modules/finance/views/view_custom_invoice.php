@@ -63,7 +63,7 @@ $unit_prices = explode(',', $invoice['unit_prices']);
         <button id="download-btn" class="vi-btn">Download PDF</button>
     </div>
 
-    <div class="vi-container" id="invoice-to-print">
+    <div class="vi-container" id="invoice-to-print" style="margin-bottom: 100px;">
         <div class="vi-top-line"></div>
         <div class="vi-company">ISPECS APPEAL JAMAICA LTD</div>
         <div class="vi-address">
