@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function fetchInvoices() {
     if (!patientId) return;
-    fetch('./db/fetch_custom_invoice.php?patient_id='+ patientId)
+    fetch('./db/fetch_custom_invoice.php?patient_id='+ patientId +'&set=0')
         .then(response => response.json())
         .then(data => {
             invoiceListBody.innerHTML = ''; // Clear existing rows
