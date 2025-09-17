@@ -1223,6 +1223,32 @@ $arr = explode(',',$string);
     $this->load->view('home/footer');
     }
 
+        function viewCustomInvoice() {
+     
+    //check if user is logged in before trying to access page
+    if (!$this->ion_auth->logged_in()){
+
+        redirect('auth/login', 'refresh');
+    }
+    
+    //create patient variable
+    $patient = $this->input->get('patient');
+    if (empty($patient)){
+        $patient = $this->input->post('patient');
+    }
+
+    //configure data for settings and details of patient
+    $data['settings'] = $this->settings_model->getSettings();
+    $data['patient'] = $this->patient_model->getPatientByid($patient);
+
+    //Load customInvoice View Page
+
+    $this->load->view('home/dashboard');
+    $this->load->view('view_custom_invoice', $data);
+    $this->load->view('home/footer');
+    }
+
+
     function deposit() {
         $id = $this->input->post('id');
         $patient = $this->input->post('patient');
