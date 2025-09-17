@@ -55,8 +55,9 @@ $unit_prices = explode(',', $invoice['unit_prices']);
 
    <link rel="stylesheet" href="https://secure-emr.ispecsappeal.net/custom_styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-</head>
-<body>
+        <p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
     <div class="vi-actions-bar">
         <button id="print-btn" class="vi-btn">Print Invoice</button>
         <button id="download-btn" class="vi-btn">Download PDF</button>
