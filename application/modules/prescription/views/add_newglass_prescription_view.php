@@ -114,7 +114,8 @@ if ($this->ion_auth->in_group('Doctor')) {
                                     ?>' placeholder="" readonly="">
 </td>
 </tr>
-</table>								
+</table>	
+<!--							
 <div class="form-group col-md-12">
 <table border='0' width="100%" cellpadding='0' cellspacing='0'>
 <tr>
@@ -253,7 +254,9 @@ if ($this->ion_auth->in_group('Doctor')) {
 <td>NEG </td>
 <td><input type="text"  class="w3-input" size="3" name='ver_neg' > </td>
 <td>NEW RX </td>
-<td colspan='7'><!--<input type="text"  class="w3-input" size="30" name='ver_newrx' >--> </td>
+<td colspan='7'><!--<input type="text"  class="w3-input" size="30" name='ver_newrx' >-->
+<!--
+</td>
 </tr>
 <tr>
 <td colspan='5'>&nbsp; </td>
@@ -648,6 +651,8 @@ if ($this->ion_auth->in_group('Doctor')) {
 
 
 </div>
+
+                                  -->
 
 
                                 <?php if (!$this->ion_auth->in_group('Doctor')) { ?>
