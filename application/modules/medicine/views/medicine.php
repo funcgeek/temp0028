@@ -57,6 +57,11 @@
     /* Modern CSS for Frames List */
 
 /* Panel Styling */
+
+.table-responsive {
+    overflow-x: auto;
+}
+
 .frames_section {
     background-color: #fff;
     border-radius: 8px;
@@ -941,8 +946,8 @@ function printElement(elem) {
                 loadingIndicator: true
             },
             dom: "<'row'<'col-sm-3'l><'col-sm-5 text-center'B><'col-sm-4'f>>" +
-                    "<'row'<'col-sm-12'tr>>" +
-                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+     "<'row'<'col-sm-12'<'table-responsive'tr>>" +
+     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
             buttons: [
             <?php if ($this->ion_auth->in_group(array('admin', 'Doctor'))) { ?>	
 				'copyHtml5',
