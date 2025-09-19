@@ -1,4 +1,71 @@
-<form role="form" action="prescription/addNewPrescription" class="clearfix" method="post" enctype="multipart/form-data">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+  margin-left:-5px;
+  margin-right:-5px;
+}
+
+.column {
+  flex: 50%;
+  padding: 5px;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 1px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.w3-input{padding:8px;display:block;border:none;border-bottom:1px solid #ccc;}
+.w3-animate-input{transition:width 0.4s ease-in-out}
+.w3-animate-input:focus{width:100%!important}
+
+</style>
+
+<!--sidebar end-->
+<!--main content start-->
+
+
+<?php
+$current_user = $this->ion_auth->get_user_id();
+if ($this->ion_auth->in_group('Doctor')) {
+    $doctor_id = $this->db->get_where('doctor', array('ion_user_id' => $current_user))->row()->id;
+    $doctordetails = $this->db->get_where('doctor', array('id' => $doctor_id))->row();
+}
+?>
+
+
+<section id="main-content">
+    <section class="wrapper site-min-height">
+        <!-- page start-->
+        <section class="col-md-8">
+            <header class="panel-heading">
+                <?php
+                if (!empty($prescription->id))
+                    echo 'Edit Patient Prescription Information';//lang('edit_prescription');
+                else
+                    echo 'Add Patient Prescription Information';//lang('add_prescription');
+                ?>
+            </header>
+            <div class="panel col-md-12">
+                <div class="adv-table editable-table ">
+                    <div class="clearfix">
+                        <?php echo validation_errors(); ?>
+                <form role="form" action="prescription/addNewPrescription" class="clearfix" method="post" enctype="multipart/form-data">
     <div class="">
 
         <table border='0' width="100%" cellpadding='0' cellspacing='0'>
@@ -172,9 +239,6 @@
                 </table>
             </div>
         </div>
-
-    
-
 
 
 
