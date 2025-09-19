@@ -355,7 +355,7 @@ if ($this->ion_auth->in_group('Doctor')) {
 
 
 
-                                <div class="form-group col-md-12">
+                                <!-- <div class="form-group col-md-12">
                                     <label class="control-label"><?php echo lang('rx'); ?></label>
                                     <textarea class="form-control ckeditor" id="editor3" name="advice" value="" rows="30" cols="20"><?php
                                         if (!empty($setval)) {
@@ -366,9 +366,9 @@ if ($this->ion_auth->in_group('Doctor')) {
                                         }
                                         ?>
                                     </textarea>
-                                </div>
+                                </div> -->
 								<div class="form-group col-md-6">
-                                    <label class="control-label"><?php echo lang('patient_allergies'); ?></label>
+                                    <!-- <label class="control-label"><?php echo lang('patient_allergies'); ?></label>
                                     <textarea class="form-control ckeditor" id="editor1" name="note" value="" rows="50" cols="20"><?php
                                         if (!empty($setval)) {
                                             echo set_value('note');
@@ -376,7 +376,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                                         if (!empty($prescription->note)) {
                                             echo $prescription->note;
                                         }
-                                        ?></textarea>
+                                        ?></textarea> -->
 
 
                                 <input type="hidden" name="admin" value='admin'>
