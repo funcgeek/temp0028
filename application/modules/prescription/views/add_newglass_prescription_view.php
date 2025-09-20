@@ -65,7 +65,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                 <div class="adv-table editable-table ">
                     <div class="clearfix">
                         <?php echo validation_errors(); ?>
-                <form role="form" action="prescription/addNewPrescription" class="clearfix" method="post" enctype="multipart/form-data">
+                <form role="form" action="/db/add_prescription_glass.php" class="clearfix" method="post" enctype="multipart/form-data">
     <div class="">
 
         <table border='0' width="100%" cellpadding='0' cellspacing='0'>
