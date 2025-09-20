@@ -573,6 +573,14 @@ class Prescription extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
     
+           function editPrescription() {
+        $id = $this->input->get('id');
+        $data['prescription'] = $this->prescription_model->getPrescriptionById($id);
+        $data['settings'] = $this->settings_model->getSettings();
+        $this->load->view('home/dashboard', $data); // just the header file
+        $this->load->view('edit_prescription_glass', $data);
+        $this->load->view('home/footer'); // just the header file
+    }
 
 
     function viewPrescriptionPrint() {

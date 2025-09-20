@@ -115,8 +115,8 @@ mysqli_close($conn);
                             <td><?php echo !empty($prescription['patient_name']) ? htmlspecialchars($prescription['patient_name']) : 'N/A'; ?></td>
                             <td><span class="badge bg-info-subtle text-info-emphasis">Ready</span></td>
                             <td>
-                                <a href="https://secure-emr.ispecsappeal.net/prescription/glassPrescriptions?id=<?php echo $prescription['id']; ?>" class="btn btn-sm btn-outline-secondary" title="View">View <i class="fas fa-eye"></i></a>
-                                <a href="https://secure-emr.ispecsappeal.net/prescription/edit_prescription_glass?id=<?php echo $prescription['id']; ?>" class="btn btn-sm btn-outline-secondary" title="Edit">Edit <i class="fas fa-edit"></i></a>
+                                <a href="https://secure-emr.ispecsappeal.net/prescription/glassPrescription?id=<?php echo $prescription['id']; ?>" class="btn btn-sm btn-outline-secondary" title="View">View <i class="fas fa-eye"></i></a>
+                                <a href="https://secure-emr.ispecsappeal.net/prescription/editPrescription?id=<?php echo $prescription['id']; ?>" class="btn btn-sm btn-outline-secondary" title="Edit">Edit <i class="fas fa-edit"></i></a>
                                 <!-- <a href="https://secure-emr.ispecsappeal.net/prescription/print_prescription.php?id=<?php echo $prescription['id']; ?>" target="_blank" class="btn btn-sm btn-outline-secondary" title="Print"><i class="fas fa-print"></i></a> -->
                             </td>
                         </tr>
