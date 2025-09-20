@@ -93,7 +93,6 @@ mysqli_close($conn);
 
 
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -111,7 +110,10 @@ mysqli_close($conn);
         }
     </style>
 
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
     <div class="container main-container">
         
         <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
