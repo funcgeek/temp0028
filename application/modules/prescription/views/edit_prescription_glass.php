@@ -118,7 +118,7 @@ mysqli_close($conn);
         
         <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
             <h1 class="h3"><i class="fas fa-edit me-2"></i>Edit Glass Prescription</h1>
-            <a href="glassPrescriptionsList.php" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"></i>Back to List</a>
+            <a href="https://secure-emr.ispecsappeal.net/prescription/glassPrescriptionsList" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"></i>Back to List</a>
         </div>
 
         <?php if ($success_message): ?>
@@ -246,7 +246,7 @@ mysqli_close($conn);
                     </div>
                     
                     <div class="d-flex justify-content-end mt-4 pt-3 border-top">
-                        <a href="glassPrescriptionsList.php" class="btn btn-light me-2">Cancel</a>
+                        <a href="https://secure-emr.ispecsappeal.net/prescription/glassPrescriptionsList" class="btn btn-light me-2">Cancel</a>
                         <button type="submit" class="btn btn-primary">Update Prescription</button>
                     </div>
                 </form>
