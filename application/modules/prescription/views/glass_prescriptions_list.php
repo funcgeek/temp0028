@@ -52,7 +52,7 @@ mysqli_close($conn);
 
         <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
             <h1 class="h3"><i class="fas fa-glasses me-2"></i>Glass Prescriptions</h1>
-            <a href="add_prescription_glass.php" class="btn btn-primary"><i class="fas fa-plus-circle me-2"></i>New Prescription</a>
+            <a href="https://secure-emr.ispecsappeal.net/prescription/addGlassPrescriptionView" class="btn btn-primary"><i class="fas fa-plus-circle me-2"></i>New Prescription</a>
         </div>
 
         <div class="row mb-4">
@@ -115,9 +115,9 @@ mysqli_close($conn);
                             <td><?php echo !empty($prescription['patient_name']) ? htmlspecialchars($prescription['patient_name']) : 'N/A'; ?></td>
                             <td><span class="badge bg-info-subtle text-info-emphasis">Ready</span></td>
                             <td>
-                                <a href="glassPrescriptions.php?id=<?php echo $prescription['id']; ?>" class="btn btn-sm btn-outline-secondary" title="View"><i class="fas fa-eye"></i></a>
-                                <a href="edit_prescription_glass.php?id=<?php echo $prescription['id']; ?>" class="btn btn-sm btn-outline-secondary" title="Edit"><i class="fas fa-edit"></i></a>
-                                <a href="print_prescription.php?id=<?php echo $prescription['id']; ?>" target="_blank" class="btn btn-sm btn-outline-secondary" title="Print"><i class="fas fa-print"></i></a>
+                                <a href="https://secure-emr.ispecsappeal.net/prescription/glassPrescriptions?id=<?php echo $prescription['id']; ?>" class="btn btn-sm btn-outline-secondary" title="View">View <i class="fas fa-eye"></i></a>
+                                <a href="https://secure-emr.ispecsappeal.net/prescription/edit_prescription_glass?id=<?php echo $prescription['id']; ?>" class="btn btn-sm btn-outline-secondary" title="Edit">Edit <i class="fas fa-edit"></i></a>
+                                <!-- <a href="https://secure-emr.ispecsappeal.net/prescription/print_prescription.php?id=<?php echo $prescription['id']; ?>" target="_blank" class="btn btn-sm btn-outline-secondary" title="Print"><i class="fas fa-print"></i></a> -->
                             </td>
                         </tr>
                         <?php endforeach; ?>
