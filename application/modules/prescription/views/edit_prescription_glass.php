@@ -1,378 +1,250 @@
 <?php
-// Database connection
-$conn = mysqli_connect("localhost", "secureispecs_emr_setup", "RukrIp69FR(0", "secureispecs_emr");
+// --- CONFIGURATION & INITIALIZATION ---
+// It's highly recommended to place your database credentials in a separate, secure file.
+$db_host = "localhost";
+$db_user = "secureispecs_emr_setup";
+$db_pass = "RukrIp69FR(0";
+$db_name = "secureispecs_emr";
 
-// Check connection
+// Establish a database connection
+$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+
+// Check the connection for errors
 if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+    // Use a generic error message for security
+    die("Database connection failed. Please try again later.");
 }
 
-// Get the ID from URL parameter
+// Initialize variables
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$prescription = null;
+$patients = [];
+$doctors = [];
+$success_message = '';
+$error_message = '';
 
-// Fetch prescription data
-$sql = "SELECT * FROM new_glass_presc WHERE id = $id";
-$result = mysqli_query($conn, $sql);
+// --- DATA HANDLING (POST REQUEST) ---
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $id > 0) {
+    // Use a prepared statement to prevent SQL injection
+    $sql = "UPDATE new_glass_presc SET 
+            patient_id = ?, doctor_id = ?, date = ?,
+            old_rx_r_sphere = ?, old_rx_r_cylinder = ?, old_rx_r_axis = ?,
+            old_rx_l_sphere = ?, old_rx_l_cylinder = ?, old_rx_l_axis = ?,
+            new_rx_r_sphere = ?, new_rx_r_cylinder = ?, new_rx_r_axis = ?, new_rx_r_prism = ?, new_rx_r_add = ?, new_rx_r_seght = ?, new_rx_r_pd = ?,
+            new_rx_l_sphere = ?, new_rx_l_cylinder = ?, new_rx_l_axis = ?, new_rx_l_prism = ?, new_rx_l_add = ?, new_rx_l_seght = ?, new_rx_l_pd = ?,
+            rec_clear = ?, rec_transition = ?, rec_arc = ?, rec_blue_filter = ?, rec_tint = ?, rec_other = ?,
+            lens_single_version = ?, lens_bifocal = ?, lens_progressive = ?, lens_other = ?
+            WHERE id = ?";
 
-if (!$result || mysqli_num_rows($result) == 0) {
-    die("Prescription not found");
+    $stmt = mysqli_prepare($conn, $sql);
+    
+    // Bind parameters from the $_POST array
+    mysqli_stmt_bind_param($stmt, "iissssssssssssssssssssssssssssssi", 
+        $_POST['patient'], $_POST['doctor'], $_POST['date'],
+        $_POST['old_rx_r_sphere'], $_POST['old_rx_r_cylinder'], $_POST['old_rx_r_axis'],
+        $_POST['old_rx_l_sphere'], $_POST['old_rx_l_cylinder'], $_POST['old_rx_l_axis'],
+        $_POST['new_rx_r_sphere'], $_POST['new_rx_r_cylinder'], $_POST['new_rx_r_axis'], $_POST['new_rx_r_prism'], $_POST['new_rx_r_add'], $_POST['new_rx_r_seght'], $_POST['new_rx_r_pd'],
+        $_POST['new_rx_l_sphere'], $_POST['new_rx_l_cylinder'], $_POST['new_rx_l_axis'], $_POST['new_rx_l_prism'], $_POST['new_rx_l_add'], $_POST['new_rx_l_seght'], $_POST['new_rx_l_pd'],
+        $_POST['rec_clear'], $_POST['rec_transition'], $_POST['rec_arc'], $_POST['rec_blue_filter'], $_POST['rec_tint'], $_POST['rec_other'],
+        $_POST['lens_single_version'], $_POST['lens_bifocal'], $_POST['lens_progressive'], $_POST['lens_other'],
+        $id
+    );
+
+    if (mysqli_stmt_execute($stmt)) {
+        $success_message = "Prescription updated successfully!";
+    } else {
+        $error_message = "Error: Could not update the prescription.";
+    }
+    mysqli_stmt_close($stmt);
 }
 
-$prescription = mysqli_fetch_assoc($result);
-
-// Fetch patient data
-$patient_id = $prescription['patient_id'];
-$patient_sql = "SELECT * FROM patient WHERE id = $patient_id";
-$patient_result = mysqli_query($conn, $patient_sql);
-$patient = mysqli_fetch_assoc($patient_result);
-
-// Fetch doctor data
-$doctor_id = $prescription['doctor_id'];
-$doctor_sql = "SELECT * FROM doctor WHERE id = $doctor_id";
-$doctor_result = mysqli_query($conn, $doctor_sql);
-$doctor = mysqli_fetch_assoc($doctor_result);
-
-// Fetch all patients and doctors for dropdowns
-$patients_sql = "SELECT id, name FROM patient ORDER BY name";
-$patients_result = mysqli_query($conn, $patients_sql);
-
-$doctors_sql = "SELECT id, name FROM doctor ORDER BY name";
-$doctors_result = mysqli_query($conn, $doctors_sql);
-
-// Handle form submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Collect and sanitize input data
-    $patient_id = mysqli_real_escape_string($conn, $_POST['patient']);
-    $doctor_id = mysqli_real_escape_string($conn, $_POST['doctor']);
-    $date = mysqli_real_escape_string($conn, $_POST['date']);
-    
-    // Old Rx Right
-    $old_rx_r_sphere = mysqli_real_escape_string($conn, $_POST['old_rx_r_sphere']);
-    $old_rx_r_cylinder = mysqli_real_escape_string($conn, $_POST['old_rx_r_cylinder']);
-    $old_rx_r_axis = mysqli_real_escape_string($conn, $_POST['old_rx_r_axis']);
-
-    // Old Rx Left
-    $old_rx_l_sphere = mysqli_real_escape_string($conn, $_POST['old_rx_l_sphere']);
-    $old_rx_l_cylinder = mysqli_real_escape_string($conn, $_POST['old_rx_l_cylinder']);
-    $old_rx_l_axis = mysqli_real_escape_string($conn, $_POST['old_rx_l_axis']);
-
-    // New Rx Right
-    $new_rx_r_sphere = mysqli_real_escape_string($conn, $_POST['new_rx_r_sphere']);
-    $new_rx_r_cylinder = mysqli_real_escape_string($conn, $_POST['new_rx_r_cylinder']);
-    $new_rx_r_axis = mysqli_real_escape_string($conn, $_POST['new_rx_r_axis']);
-    $new_rx_r_prism = mysqli_real_escape_string($conn, $_POST['new_rx_r_prism']);
-    $new_rx_r_add = mysqli_real_escape_string($conn, $_POST['new_rx_r_add']);
-    $new_rx_r_seght = mysqli_real_escape_string($conn, $_POST['new_rx_r_seght']);
-    $new_rx_r_pd = mysqli_real_escape_string($conn, $_POST['new_rx_r_pd']);
-
-    // New Rx Left
-    $new_rx_l_sphere = mysqli_real_escape_string($conn, $_POST['new_rx_l_sphere']);
-    $new_rx_l_cylinder = mysqli_real_escape_string($conn, $_POST['new_rx_l_cylinder']);
-    $new_rx_l_axis = mysqli_real_escape_string($conn, $_POST['new_rx_l_axis']);
-    $new_rx_l_prism = mysqli_real_escape_string($conn, $_POST['new_rx_l_prism']);
-    $new_rx_l_add = mysqli_real_escape_string($conn, $_POST['new_rx_l_add']);
-    $new_rx_l_seght = mysqli_real_escape_string($conn, $_POST['new_rx_l_seght']);
-    $new_rx_l_pd = mysqli_real_escape_string($conn, $_POST['new_rx_l_pd']);
-
-    // Recommendations
-    $rec_clear = mysqli_real_escape_string($conn, $_POST['rec_clear']);
-    $rec_transition = mysqli_real_escape_string($conn, $_POST['rec_transition']);
-    $rec_arc = mysqli_real_escape_string($conn, $_POST['rec_arc']);
-    $rec_blue_filter = mysqli_real_escape_string($conn, $_POST['rec_blue_filter']);
-    $rec_tint = mysqli_real_escape_string($conn, $_POST['rec_tint']);
-    $rec_other = mysqli_real_escape_string($conn, $_POST['rec_other']);
-
-    // Lens type
-    $lens_single_version = mysqli_real_escape_string($conn, $_POST['lens_single_version']);
-    $lens_bifocal = mysqli_real_escape_string($conn, $_POST['lens_bifocal']);
-    $lens_progressive = mysqli_real_escape_string($conn, $_POST['lens_progressive']);
-    $lens_other = mysqli_real_escape_string($conn, $_POST['lens_other']);
-
-    // Update query
-    $update_sql = "UPDATE new_glass_presc SET 
-        patient_id = '$patient_id',
-        doctor_id = '$doctor_id',
-        date = '$date',
-        old_rx_r_sphere = '$old_rx_r_sphere',
-        old_rx_r_cylinder = '$old_rx_r_cylinder',
-        old_rx_r_axis = '$old_rx_r_axis',
-        old_rx_l_sphere = '$old_rx_l_sphere',
-        old_rx_l_cylinder = '$old_rx_l_cylinder',
-        old_rx_l_axis = '$old_rx_l_axis',
-        new_rx_r_sphere = '$new_rx_r_sphere',
-        new_rx_r_cylinder = '$new_rx_r_cylinder',
-        new_rx_r_axis = '$new_rx_r_axis',
-        new_rx_r_prism = '$new_rx_r_prism',
-        new_rx_r_add = '$new_rx_r_add',
-        new_rx_r_seght = '$new_rx_r_seght',
-        new_rx_r_pd = '$new_rx_r_pd',
-        new_rx_l_sphere = '$new_rx_l_sphere',
-        new_rx_l_cylinder = '$new_rx_l_cylinder',
-        new_rx_l_axis = '$new_rx_l_axis',
-        new_rx_l_prism = '$new_rx_l_prism',
-        new_rx_l_add = '$new_rx_l_add',
-        new_rx_l_seght = '$new_rx_l_seght',
-        new_rx_l_pd = '$new_rx_l_pd',
-        rec_clear = '$rec_clear',
-        rec_transition = '$rec_transition',
-        rec_arc = '$rec_arc',
-        rec_blue_filter = '$rec_blue_filter',
-        rec_tint = '$rec_tint',
-        rec_other = '$rec_other',
-        lens_single_version = '$lens_single_version',
-        lens_bifocal = '$lens_bifocal',
-        lens_progressive = '$lens_progressive',
-        lens_other = '$lens_other'
-        WHERE id = $id";
-
-    if (mysqli_query($conn, $update_sql)) {
-        $success_message = "Prescription updated successfully!";
-        // Refresh the data
-        $result = mysqli_query($conn, "SELECT * FROM new_glass_presc WHERE id = $id");
+// --- DATA FETCHING (GET REQUEST) ---
+if ($id > 0) {
+    // Fetch the specific prescription to edit
+    $stmt = mysqli_prepare($conn, "SELECT * FROM new_glass_presc WHERE id = ?");
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    if ($result && mysqli_num_rows($result) > 0) {
         $prescription = mysqli_fetch_assoc($result);
     } else {
-        $error_message = "Error updating prescription: " . mysqli_error($conn);
+        die("Prescription not found.");
     }
+    mysqli_stmt_close($stmt);
+
+    // Fetch all patients for the dropdown
+    $patients_result = mysqli_query($conn, "SELECT id, name FROM patient ORDER BY name");
+    while ($row = mysqli_fetch_assoc($patients_result)) {
+        $patients[] = $row;
+    }
+
+    // Fetch all doctors for the dropdown
+    $doctors_result = mysqli_query($conn, "SELECT id, name FROM doctor ORDER BY name");
+    while ($row = mysqli_fetch_assoc($doctors_result)) {
+        $doctors[] = $row;
+    }
+} else {
+    die("No prescription ID provided.");
 }
 
+// Close the database connection
 mysqli_close($conn);
 ?>
 
 
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-
-        .card {
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-            border: none;
-            margin-bottom: 30px;
+        body {
+            background-color: #f8f9fa; /* A light, neutral background */
         }
-        .card-header {
-            background: linear-gradient(to right, #3498db, #2c3e50);
-            color: white;
-            border-radius: 10px 10px 0 0 !important;
-            padding: 15px 20px;
-            font-weight: 600;
+        .main-container {
+            max-width: 800px; /* Set the maximum width */
+            margin: 40px auto; /* Center the container and add vertical space */
         }
-        .btn-primary {
-            background: linear-gradient(to right, #3498db, #2c3e50);
-            border: none;
-        }
-        .btn-primary:hover {
-            background: linear-gradient(to right, #2c3e50, #3498db);
-        }
-        .form-label {
-            font-weight: 600;
-        }
-        .rx-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        .rx-table th, .rx-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
+        .rx-table input {
+            /* Ensures input fields in tables are consistent */
+            min-width: 60px;
             text-align: center;
-        }
-        .rx-table th {
-            background-color: #f2f2f2;
-        }
-        .action-btn {
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 14px;
-            margin-right: 5px;
-        }
-        .back-btn {
-            background-color: #6c757d;
-            color: white;
-            border: none;
-        }
-        .back-btn:hover {
-            background-color: #5a6268;
         }
     </style>
 
-    <div class="header">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <h1><i class="fas fa-edit me-3"></i>Edit Glass Prescription</h1>
-                </div>
-                <div class="col-md-6 text-end">
-                    <a href="glassPrescriptionsList.php" class="btn btn-light"><i class="fas fa-arrow-left me-2"></i>Back to List</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="container">
-        <?php if (isset($success_message)): ?>
+    <div class="container main-container">
+        
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+            <h1 class="h3"><i class="fas fa-edit me-2"></i>Edit Glass Prescription</h1>
+            <a href="glassPrescriptionsList.php" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"></i>Back to List</a>
+        </div>
+
+        <?php if ($success_message): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <?php echo $success_message; ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <?php endif; ?>
         
-        <?php if (isset($error_message)): ?>
+        <?php if ($error_message): ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <?php echo $error_message; ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <?php endif; ?>
 
-        <div class="card">
-            <div class="card-header">
-                <h5 class="m-0"><i class="fas fa-pencil-alt me-2"></i>Edit Prescription #<?php echo $prescription['id']; ?></h5>
+        <div class="card shadow-sm">
+            <div class="card-header bg-light">
+                <h5 class="card-title mb-0">Editing Prescription #<?php echo htmlspecialchars($prescription['id']); ?></h5>
             </div>
-            <div class="card-body">
+            <div class="card-body p-4">
                 <form method="POST" action="">
                     <div class="row mb-4">
                         <div class="col-md-4">
-                            <label for="patient" class="form-label">Patient</label>
+                            <label for="patient" class="form-label fw-bold">Patient</label>
                             <select class="form-select" id="patient" name="patient" required>
-                                <option value="">Select Patient</option>
-                                <?php while ($pat = mysqli_fetch_assoc($patients_result)): ?>
-                                <option value="<?php echo $pat['id']; ?>" <?php echo $pat['id'] == $prescription['patient_id'] ? 'selected' : ''; ?>>
+                                <option value="">Select...</option>
+                                <?php foreach ($patients as $pat): ?>
+                                <option value="<?php echo $pat['id']; ?>" <?php echo ($pat['id'] == $prescription['patient_id']) ? 'selected' : ''; ?>>
                                     <?php echo htmlspecialchars($pat['name']); ?>
                                 </option>
-                                <?php endwhile; ?>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <label for="doctor" class="form-label">Doctor</label>
+                            <label for="doctor" class="form-label fw-bold">Doctor</label>
                             <select class="form-select" id="doctor" name="doctor" required>
-                                <option value="">Select Doctor</option>
-                                <?php while ($doc = mysqli_fetch_assoc($doctors_result)): ?>
-                                <option value="<?php echo $doc['id']; ?>" <?php echo $doc['id'] == $prescription['doctor_id'] ? 'selected' : ''; ?>>
+                                <option value="">Select...</option>
+                                <?php foreach ($doctors as $doc): ?>
+                                <option value="<?php echo $doc['id']; ?>" <?php echo ($doc['id'] == $prescription['doctor_id']) ? 'selected' : ''; ?>>
                                     <?php echo htmlspecialchars($doc['name']); ?>
                                 </option>
-                                <?php endwhile; ?>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <label for="date" class="form-label">Date</label>
-                            <input type="date" class="form-control" id="date" name="date" value="<?php echo $prescription['date']; ?>" required>
+                            <label for="date" class="form-label fw-bold">Date</label>
+                            <input type="date" class="form-control" id="date" name="date" value="<?php echo htmlspecialchars($prescription['date']); ?>" required>
                         </div>
                     </div>
 
-                    <h5 class="mb-3">Old Rx</h5>
-                    <table class="rx-table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Sphere</th>
-                                <th>Cylinder</th>
-                                <th>Axis</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>R</strong></td>
-                                <td><input type="text" class="form-control" name="old_rx_r_sphere" value="<?php echo htmlspecialchars($prescription['old_rx_r_sphere']); ?>"></td>
-                                <td><input type="text" class="form-control" name="old_rx_r_cylinder" value="<?php echo htmlspecialchars($prescription['old_rx_r_cylinder']); ?>"></td>
-                                <td><input type="text" class="form-control" name="old_rx_r_axis" value="<?php echo htmlspecialchars($prescription['old_rx_r_axis']); ?>"></td>
-                            </tr>
-                            <tr>
-                                <td><strong>L</strong></td>
-                                <td><input type="text" class="form-control" name="old_rx_l_sphere" value="<?php echo htmlspecialchars($prescription['old_rx_l_sphere']); ?>"></td>
-                                <td><input type="text" class="form-control" name="old_rx_l_cylinder" value="<?php echo htmlspecialchars($prescription['old_rx_l_cylinder']); ?>"></td>
-                                <td><input type="text" class="form-control" name="old_rx_l_axis" value="<?php echo htmlspecialchars($prescription['old_rx_l_axis']); ?>"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <h5 class="mt-4 mb-3">Old Rx</h5>
+                        <table class="table table-bordered text-center rx-table">
+                            <thead class="table-light">
+                                <tr>
+                                    <th></th><th>Sphere</th><th>Cylinder</th><th>Axis</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-bold">R</td>
+                                    <td><input type="text" class="form-control" name="old_rx_r_sphere" value="<?php echo htmlspecialchars($prescription['old_rx_r_sphere']); ?>"></td>
+                                    <td><input type="text" class="form-control" name="old_rx_r_cylinder" value="<?php echo htmlspecialchars($prescription['old_rx_r_cylinder']); ?>"></td>
+                                    <td><input type="text" class="form-control" name="old_rx_r_axis" value="<?php echo htmlspecialchars($prescription['old_rx_r_axis']); ?>"></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">L</td>
+                                    <td><input type="text" class="form-control" name="old_rx_l_sphere" value="<?php echo htmlspecialchars($prescription['old_rx_l_sphere']); ?>"></td>
+                                    <td><input type="text" class="form-control" name="old_rx_l_cylinder" value="<?php echo htmlspecialchars($prescription['old_rx_l_cylinder']); ?>"></td>
+                                    <td><input type="text" class="form-control" name="old_rx_l_axis" value="<?php echo htmlspecialchars($prescription['old_rx_l_axis']); ?>"></td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-                    <h5 class="mb-3">New Rx</h5>
-                    <table class="rx-table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Sphere</th>
-                                <th>Cylinder</th>
-                                <th>Axis</th>
-                                <th>Prism</th>
-                                <th>ADD</th>
-                                <th>Seg HT</th>
-                                <th>PD</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>R</strong></td>
-                                <td><input type="text" class="form-control" name="new_rx_r_sphere" value="<?php echo htmlspecialchars($prescription['new_rx_r_sphere']); ?>"></td>
-                                <td><input type="text" class="form-control" name="new_rx_r_cylinder" value="<?php echo htmlspecialchars($prescription['new_rx_r_cylinder']); ?>"></td>
-                                <td><input type="text" class="form-control" name="new_rx_r_axis" value="<?php echo htmlspecialchars($prescription['new_rx_r_axis']); ?>"></td>
-                                <td><input type="text" class="form-control" name="new_rx_r_prism" value="<?php echo htmlspecialchars($prescription['new_rx_r_prism']); ?>"></td>
-                                <td><input type="text" class="form-control" name="new_rx_r_add" value="<?php echo htmlspecialchars($prescription['new_rx_r_add']); ?>"></td>
-                                <td><input type="text" class="form-control" name="new_rx_r_seght" value="<?php echo htmlspecialchars($prescription['new_rx_r_seght']); ?>"></td>
-                                <td><input type="text" class="form-control" name="new_rx_r_pd" value="<?php echo htmlspecialchars($prescription['new_rx_r_pd']); ?>"></td>
-                            </tr>
-                            <tr>
-                                <td><strong>L</strong></td>
-                                <td><input type="text" class="form-control" name="new_rx_l_sphere" value="<?php echo htmlspecialchars($prescription['new_rx_l_sphere']); ?>"></td>
-                                <td><input type="text" class="form-control" name="new_rx_l_cylinder" value="<?php echo htmlspecialchars($prescription['new_rx_l_cylinder']); ?>"></td>
-                                <td><input type="text" class="form-control" name="new_rx_l_axis" value="<?php echo htmlspecialchars($prescription['new_rx_l_axis']); ?>"></td>
-                                <td><input type="text" class="form-control" name="new_rx_l_prism" value="<?php echo htmlspecialchars($prescription['new_rx_l_prism']); ?>"></td>
-                                <td><input type="text" class="form-control" name="new_rx_l_add" value="<?php echo htmlspecialchars($prescription['new_rx_l_add']); ?>"></td>
-                                <td><input type="text" class="form-control" name="new_rx_l_seght" value="<?php echo htmlspecialchars($prescription['new_rx_l_seght']); ?>"></td>
-                                <td><input type="text" class="form-control" name="new_rx_l_pd" value="<?php echo htmlspecialchars($prescription['new_rx_l_pd']); ?>"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        <h5 class="mt-4 mb-3">New Rx</h5>
+                        <table class="table table-bordered text-center rx-table">
+                             <thead class="table-light">
+                                <tr>
+                                    <th></th><th>Sphere</th><th>Cylinder</th><th>Axis</th><th>Prism</th><th>ADD</th><th>Seg HT</th><th>PD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-bold">R</td>
+                                    <td><input type="text" class="form-control" name="new_rx_r_sphere" value="<?php echo htmlspecialchars($prescription['new_rx_r_sphere']); ?>"></td>
+                                    <td><input type="text" class="form-control" name="new_rx_r_cylinder" value="<?php echo htmlspecialchars($prescription['new_rx_r_cylinder']); ?>"></td>
+                                    <td><input type="text" class="form-control" name="new_rx_r_axis" value="<?php echo htmlspecialchars($prescription['new_rx_r_axis']); ?>"></td>
+                                    <td><input type="text" class="form-control" name="new_rx_r_prism" value="<?php echo htmlspecialchars($prescription['new_rx_r_prism']); ?>"></td>
+                                    <td><input type="text" class="form-control" name="new_rx_r_add" value="<?php echo htmlspecialchars($prescription['new_rx_r_add']); ?>"></td>
+                                    <td><input type="text" class="form-control" name="new_rx_r_seght" value="<?php echo htmlspecialchars($prescription['new_rx_r_seght']); ?>"></td>
+                                    <td><input type="text" class="form-control" name="new_rx_r_pd" value="<?php echo htmlspecialchars($prescription['new_rx_r_pd']); ?>"></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">L</td>
+                                    <td><input type="text" class="form-control" name="new_rx_l_sphere" value="<?php echo htmlspecialchars($prescription['new_rx_l_sphere']); ?>"></td>
+                                    <td><input type="text" class="form-control" name="new_rx_l_cylinder" value="<?php echo htmlspecialchars($prescription['new_rx_l_cylinder']); ?>"></td>
+                                    <td><input type="text" class="form-control" name="new_rx_l_axis" value="<?php echo htmlspecialchars($prescription['new_rx_l_axis']); ?>"></td>
+                                    <td><input type="text" class="form-control" name="new_rx_l_prism" value="<?php echo htmlspecialchars($prescription['new_rx_l_prism']); ?>"></td>
+                                    <td><input type="text" class="form-control" name="new_rx_l_add" value="<?php echo htmlspecialchars($prescription['new_rx_l_add']); ?>"></td>
+                                    <td><input type="text" class="form-control" name="new_rx_l_seght" value="<?php echo htmlspecialchars($prescription['new_rx_l_seght']); ?>"></td>
+                                    <td><input type="text" class="form-control" name="new_rx_l_pd" value="<?php echo htmlspecialchars($prescription['new_rx_l_pd']); ?>"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                    <div class="row mb-4">
+                    <div class="row mt-4">
                         <div class="col-md-6">
                             <h5 class="mb-3">Recommendations</h5>
-                            <div class="mb-3">
-                                <label class="form-label">Clear</label>
-                                <input type="text" class="form-control" name="rec_clear" value="<?php echo htmlspecialchars($prescription['rec_clear']); ?>">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Transition</label>
-                                <input type="text" class="form-control" name="rec_transition" value="<?php echo htmlspecialchars($prescription['rec_transition']); ?>">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">ARC</label>
-                                <input type="text" class="form-control" name="rec_arc" value="<?php echo htmlspecialchars($prescription['rec_arc']); ?>">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Blue Filter</label>
-                                <input type="text" class="form-control" name="rec_blue_filter" value="<?php echo htmlspecialchars($prescription['rec_blue_filter']); ?>">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Tint</label>
-                                <input type="text" class="form-control" name="rec_tint" value="<?php echo htmlspecialchars($prescription['rec_tint']); ?>">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Other</label>
-                                <input type="text" class="form-control" name="rec_other" value="<?php echo htmlspecialchars($prescription['rec_other']); ?>">
-                            </div>
+                            <input type="text" class="form-control mb-2" name="rec_clear" placeholder="Clear" value="<?php echo htmlspecialchars($prescription['rec_clear']); ?>">
+                            <input type="text" class="form-control mb-2" name="rec_transition" placeholder="Transition" value="<?php echo htmlspecialchars($prescription['rec_transition']); ?>">
+                            <input type="text" class="form-control mb-2" name="rec_arc" placeholder="ARC" value="<?php echo htmlspecialchars($prescription['rec_arc']); ?>">
+                            <input type="text" class="form-control mb-2" name="rec_blue_filter" placeholder="Blue Filter" value="<?php echo htmlspecialchars($prescription['rec_blue_filter']); ?>">
+                            <input type="text" class="form-control mb-2" name="rec_tint" placeholder="Tint" value="<?php echo htmlspecialchars($prescription['rec_tint']); ?>">
+                            <input type="text" class="form-control" name="rec_other" placeholder="Other" value="<?php echo htmlspecialchars($prescription['rec_other']); ?>">
                         </div>
                         <div class="col-md-6">
                             <h5 class="mb-3">Lens Type</h5>
-                            <div class="mb-3">
-                                <label class="form-label">Single Vision</label>
-                                <input type="text" class="form-control" name="lens_single_version" value="<?php echo htmlspecialchars($prescription['lens_single_version']); ?>">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Bifocal</label>
-                                <input type="text" class="form-control" name="lens_bifocal" value="<?php echo htmlspecialchars($prescription['lens_bifocal']); ?>">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Progressive</label>
-                                <input type="text" class="form-control" name="lens_progressive" value="<?php echo htmlspecialchars($prescription['lens_progressive']); ?>">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Other</label>
-                                <input type="text" class="form-control" name="lens_other" value="<?php echo htmlspecialchars($prescription['lens_other']); ?>">
-                            </div>
+                            <input type="text" class="form-control mb-2" name="lens_single_version" placeholder="Single Vision" value="<?php echo htmlspecialchars($prescription['lens_single_version']); ?>">
+                            <input type="text" class="form-control mb-2" name="lens_bifocal" placeholder="Bifocal" value="<?php echo htmlspecialchars($prescription['lens_bifocal']); ?>">
+                            <input type="text" class="form-control mb-2" name="lens_progressive" placeholder="Progressive" value="<?php echo htmlspecialchars($prescription['lens_progressive']); ?>">
+                            <input type="text" class="form-control" name="lens_other" placeholder="Other" value="<?php echo htmlspecialchars($prescription['lens_other']); ?>">
                         </div>
                     </div>
-
-                    <div class="d-flex justify-content-end">
-                        <a href="glassPrescriptionsList.php" class="btn btn-secondary me-2">Cancel</a>
+                    
+                    <div class="d-flex justify-content-end mt-4 pt-3 border-top">
+                        <a href="glassPrescriptionsList.php" class="btn btn-light me-2">Cancel</a>
                         <button type="submit" class="btn btn-primary">Update Prescription</button>
                     </div>
                 </form>
@@ -380,4 +252,4 @@ mysqli_close($conn);
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
